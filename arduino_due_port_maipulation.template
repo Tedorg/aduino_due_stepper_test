@@ -1,0 +1,31 @@
+
+#define OUTPINS   (0x1FE)
+#define LEDBIT (1<<27)
+
+//void setup() {
+//  
+//  PMC->PMC_PCER0 |= PMC_PCER0_PID13;  // PIOC Power ON
+//  PIOC->PIO_OER |= OUTPINS;   // Outputs are enabled
+//
+//}
+//
+//
+//void loop() {
+//  
+//PIOC->PIO_SODR = OUTPINS;
+//delay(400);
+//PIOC->PIO_CODR = OUTPINS;
+//delay(400);
+//
+//}
+
+void setup() {
+  pinMode(13, OUTPUT);
+  PIOB->PIO_OWER |= LEDBIT;  // Enabled direct writing to ODSR
+}
+void loop() {
+  PIOB->PIO_ODSR = LEDBIT;   // turn the LED on (HIGH is the voltage level)
+  delay(1000);              // wait for a second
+  PIOB->PIO_ODSR = 0;    // turn the LED off by making the voltage LOW
+  delay(1000);              // wait for a second
+}
